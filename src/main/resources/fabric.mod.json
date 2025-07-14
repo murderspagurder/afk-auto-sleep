@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "afkautosleep",
+  "name": "AFK Auto Sleep",
+  "version": "${version}",
+  "authors": ["murder_spagurder"],
+  "contact": {
+    "sources": "",
+    "issues": ""
+  },
+  "description": "Automatically sleep in a nearby bed when AFK",
+  "icon": "assets/icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "accessWidener": "afkautosleep.accesswidener",
+  "entrypoints": {
+    "client": [
+      "dev.spagurder.afkautosleep.fabric.FabricEntrypoint"
+    ]
+  },
+  "mixins": [
+    "afkautosleep.mixins.json"
+  ],
+  "depends": {
+    "fabric-api": "*"
+  }
+}

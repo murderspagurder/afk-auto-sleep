@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "MIT"
+
+[[mods]]
+modId = "afkautosleep"
+displayName = "AFK Auto Sleep"
+version = "${version}"
+displayURL = ""
+logoFile = "assets/icon.png"
+authors = "murder_spagurder"
+description = '''Automatically sleep in a nearby bed when AFK'''
+
+[[mixins]]
+config = "afkautosleep.mixins.json"
+
+[[dependencies.afkautosleep]]
+modId = "neoforge"
+type = "required"
+versionRange = "[1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.afkautosleep]]
+modId = "minecraft"
+type = "required"

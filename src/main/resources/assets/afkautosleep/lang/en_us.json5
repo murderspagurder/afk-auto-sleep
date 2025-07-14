@@ -1,0 +1,12 @@
+{
+  key: {
+    afkautosleep: {
+      selectBed: "Select Bed"
+    }
+  },
+  category: {
+    afkautosleep: {
+      keybinds: "AFK Auto Sleep"
+    }
+  }
+}
