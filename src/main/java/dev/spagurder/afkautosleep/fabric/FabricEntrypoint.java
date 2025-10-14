@@ -1,7 +1,7 @@
 package dev.spagurder.afkautosleep.fabric;
 
 //? fabric {
-/*import dev.spagurder.afkautosleep.AfkAutoSleep;
+import dev.spagurder.afkautosleep.AfkAutoSleep;
 import dev.spagurder.afkautosleep.core.EventHandler;
 import dev.spagurder.afkautosleep.core.KeyMappings;
 import net.fabricmc.api.ClientModInitializer;
@@ -25,4 +25,4 @@ public class FabricEntrypoint implements ClientModInitializer {
     }
 
 }
-*///?}
+//?}

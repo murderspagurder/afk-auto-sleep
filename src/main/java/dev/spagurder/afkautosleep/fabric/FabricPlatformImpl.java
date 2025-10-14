@@ -1,7 +1,7 @@
 package dev.spagurder.afkautosleep.fabric;
 
 //? fabric {
-/*import dev.spagurder.afkautosleep.Platform;
+import dev.spagurder.afkautosleep.Platform;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformImpl implements Platform {
@@ -17,4 +17,4 @@ public class FabricPlatformImpl implements Platform {
     }
 
 }
-*///?}
+//?}

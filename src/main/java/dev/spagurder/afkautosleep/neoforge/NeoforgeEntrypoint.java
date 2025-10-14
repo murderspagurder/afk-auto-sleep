@@ -1,7 +1,7 @@
 package dev.spagurder.afkautosleep.neoforge;
 
 //? neoforge {
-import dev.spagurder.afkautosleep.AfkAutoSleep;
+/*import dev.spagurder.afkautosleep.AfkAutoSleep;
 import dev.spagurder.afkautosleep.core.EventHandler;
 import dev.spagurder.afkautosleep.core.KeyMappings;
 import net.minecraft.client.Minecraft;
@@ -43,4 +43,4 @@ public class NeoforgeEntrypoint {
     }
 
 }
-//?}
+*///?}
