@@ -1,7 +1,7 @@
 package dev.spagurder.afkautosleep.neoforge;
 
 //? neoforge {
-/*import dev.spagurder.afkautosleep.Platform;
+import dev.spagurder.afkautosleep.Platform;
 import net.neoforged.fml.ModList;
 
 public class NeoforgePlatformImpl implements Platform {
@@ -17,4 +17,4 @@ public class NeoforgePlatformImpl implements Platform {
     }
 
 }
-*///?}
+//?}
