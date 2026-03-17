@@ -1,5 +1,10 @@
-- Expand support to 1.21.9/1.21.10
+- Expand support to 1.21.11
 - Update Gradle/Loom
-- Bump Fabric Loader to 0.17.0
-- Bump moddev to 2.0.115
-- Bump version to 0.1.1
+- Bump Fabric Loader to 0.18.4
+- Bump moddev to 2.0.140
+- Bump version to 0.1.2
+- Update stonecutter to 0.9
+- Bump foojay-resolver-convention to 1.0.0
+- Bump mod-publish-plugin to 1.1.0
+- Set VCS version to 1.21.11
+- Update build to support future version (eg. mc26.1)

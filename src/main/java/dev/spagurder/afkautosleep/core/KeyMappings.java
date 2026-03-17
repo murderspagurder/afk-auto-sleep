@@ -3,7 +3,11 @@ package dev.spagurder.afkautosleep.core;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.spagurder.afkautosleep.AfkAutoSleep;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.resources.ResourceLocation;
+//? >=1.21.11 {
+import net.minecraft.resources.Identifier;
+//?} else {
+//import net.minecraft.resources.ResourceLocation;
+//?}
 
 public class KeyMappings {
 
@@ -12,12 +16,18 @@ public class KeyMappings {
             InputConstants.Type.KEYSYM,
             InputConstants.KEY_B,
             //? >1.21.8 {
-            KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(
+            KeyMapping.Category.register(
+                    /*? >=1.21.11 { */
+                    Identifier
+                    /*? } else { */
+                    /*ResourceLocation*/
+                    /*? } */
+                            .fromNamespaceAndPath(
                     AfkAutoSleep.MOD_ID, "keybinds"
             ))
             //?} else {
-            /*"category." + AfkAutoSleep.MOD_ID + ".keybinds"
-            *///?}
+            /*"category." + AfkAutoSleep.MOD_ID + ".keybinds"*/
+            //?}
     );
 
 }
