@@ -46,7 +46,12 @@ public class BedUtils {
 
     public static boolean isSleepTime(Minecraft client) {
         if (client.level == null) return false;
-        boolean isNight = client.level.getDayTime() % 24000 > 12540;
+        //? if >=26.2 {
+        long dayTime = client.level.getOverworldClockTime();
+        //?} else {
+        /*long dayTime = client.level.getDayTime();
+        *///?}
+        boolean isNight = dayTime % 24000 > 12540;
         return isNight || client.level.isThundering();
     }
 

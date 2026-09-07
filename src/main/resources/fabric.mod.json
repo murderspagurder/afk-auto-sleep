@@ -3,7 +3,9 @@
   "id": "afkautosleep",
   "name": "AFK Auto Sleep",
   "version": "${version}",
-  "authors": ["murder_spagurder"],
+  "authors": [
+    "murder_spagurder"
+  ],
   "contact": {
     "sources": "",
     "issues": ""
@@ -12,7 +14,6 @@
   "icon": "assets/icon.png",
   "license": "MIT",
   "environment": "*",
-  "accessWidener": "afkautosleep.accesswidener",
   "entrypoints": {
     "client": [
       "dev.spagurder.afkautosleep.fabric.FabricEntrypoint"

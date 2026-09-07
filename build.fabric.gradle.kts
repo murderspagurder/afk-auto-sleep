@@ -65,13 +65,22 @@ tasks {
 
 java {
     withSourcesJar()
-    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
+    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=26")) {
+        JavaVersion.VERSION_25
+    } else if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
         JavaVersion.VERSION_21
     } else {
         JavaVersion.VERSION_17
     }
     sourceCompatibility = javaCompat
     targetCompatibility = javaCompat
+}
+
+// Minecraft 26.x requires Java 25 at runtime; let Gradle auto-provision it via the Foojay toolchain resolver
+if (stonecutter.eval(stonecutter.current.version, ">=26")) {
+    java.toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
 }
 
 val additionalVersionsStr = findProperty("publish.additionalVersions") as String?

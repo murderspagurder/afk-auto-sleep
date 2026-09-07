@@ -1,4 +1,4 @@
-- Expand support to 1.21.9/1.21.10
+- Expand support to 26.1/26.1.1/26.1.2/26.2
 - Update Gradle/Loom
 - Bump Fabric Loader to 0.17.0
 - Bump moddev to 2.0.115
