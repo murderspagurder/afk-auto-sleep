@@ -12,6 +12,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class BedUtils {
 
+    public enum SleepAttemptResult {
+        ATTEMPTED,
+        COOLDOWN,
+        OUT_OF_RANGE,
+        UNAVAILABLE
+    }
+
     private static long lastTrySleep = 0L;
     private static final long TRY_SLEEP_COOLDOWN = 100;
 
@@ -55,11 +62,17 @@ public class BedUtils {
         return isNight || client.level.isThundering();
     }
 
-    public static void trySleep(Minecraft client, BlockPos blockPos) {
-        if (client.player == null || client.level == null || client.gameMode == null) return;
+    public static SleepAttemptResult trySleep(Minecraft client, BlockPos blockPos) {
+        if (client.player == null || client.level == null || client.gameMode == null) {
+            return SleepAttemptResult.UNAVAILABLE;
+        }
         long timeSinceLastTrySleep = client.level.getGameTime() - lastTrySleep;
-        if (timeSinceLastTrySleep > 0 && timeSinceLastTrySleep < TRY_SLEEP_COOLDOWN) return;
-        if (!checkDistance(client, blockPos)) return;
+        if (timeSinceLastTrySleep > 0 && timeSinceLastTrySleep < TRY_SLEEP_COOLDOWN) {
+            return SleepAttemptResult.COOLDOWN;
+        }
+        if (!isWithinRange(client, blockPos)) {
+            return SleepAttemptResult.OUT_OF_RANGE;
+        }
         BlockHitResult targetBlock = new BlockHitResult(
                 Vec3.atCenterOf(blockPos),
                 Direction.UP,
@@ -68,14 +81,13 @@ public class BedUtils {
         );
         client.gameMode.useItemOn(client.player, InteractionHand.MAIN_HAND, targetBlock);
         lastTrySleep = client.level.getGameTime();
+        return SleepAttemptResult.ATTEMPTED;
     }
 
-    public static boolean checkDistance(Minecraft client, BlockPos blockPos) {
+    private static boolean isWithinRange(Minecraft client, BlockPos blockPos) {
         if (client.player == null) return false;
         Vec3 center = Vec3.atCenterOf(blockPos);
-        if (client.player.distanceToSqr(center) <= 20.25) return true;
-        Util.messageClient(client, "Too far to interact with bed!", false);
-        return false;
+        return client.player.distanceToSqr(center) <= 20.25;
     }
 
 }

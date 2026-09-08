@@ -6,6 +6,10 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
+tasks.withType<Test>().configureEach {
+    failOnNoDiscoveredTests = false
+}
+
 tasks.named<ProcessResources>("processResources") {
     fun prop(name: String) = project.property(name) as String
 
@@ -17,6 +21,14 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "META-INF/mods.toml")) {
         expand(props)
     }
+}
+
+tasks.register<JavaExec>("clientConfigSelfCheck") {
+    group = "verification"
+    description = "Run the focused client configuration and fallback self-check."
+    dependsOn("testClasses")
+    classpath = sourceSets["test"].runtimeClasspath
+    mainClass.set("dev.spagurder.afkautosleep.core.ClientConfigSelfCheck")
 }
 
 version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"

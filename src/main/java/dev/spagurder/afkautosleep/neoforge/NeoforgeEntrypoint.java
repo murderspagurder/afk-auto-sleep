@@ -30,6 +30,7 @@ public class NeoforgeEntrypoint {
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(KeyMappings.SELECT_BED);
+        event.register(KeyMappings.OPEN_SETTINGS);
     }
 
     @SubscribeEvent

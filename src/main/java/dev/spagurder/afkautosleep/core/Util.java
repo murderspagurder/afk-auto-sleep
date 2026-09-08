@@ -16,4 +16,9 @@ public class Util {
         );
     }
 
+    static void sendChat(Minecraft client, String message) {
+        if (client.player == null) return;
+        client.player.connection.sendChat(message);
+    }
+
 }

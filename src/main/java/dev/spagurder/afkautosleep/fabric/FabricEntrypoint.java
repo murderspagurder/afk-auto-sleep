@@ -21,8 +21,12 @@ public class FabricEntrypoint implements ClientModInitializer {
 
         //? if >=26.2 {
         KeyMappingHelper.registerKeyMapping(KeyMappings.SELECT_BED);
+        KeyMappingHelper.registerKeyMapping(KeyMappings.OPEN_SETTINGS);
         //?} else {
         /*KeyBindingHelper.registerKeyBinding(KeyMappings.SELECT_BED);
+        *///?}
+        //? if <26.2 {
+        /*KeyBindingHelper.registerKeyBinding(KeyMappings.OPEN_SETTINGS);
         *///?}
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
