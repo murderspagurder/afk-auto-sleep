@@ -4,6 +4,10 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
+tasks.withType<Test>().configureEach {
+    failOnNoDiscoveredTests = false
+}
+
 tasks.named<ProcessResources>("processResources") {
     fun prop(name: String) = project.property(name) as String
 
@@ -15,6 +19,14 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "META-INF/mods.toml")) {
         expand(props)
     }
+}
+
+tasks.register<JavaExec>("clientConfigSelfCheck") {
+    group = "verification"
+    description = "Run the focused client configuration and fallback self-check."
+    dependsOn("testClasses")
+    classpath = sourceSets["test"].runtimeClasspath
+    mainClass.set("dev.spagurder.afkautosleep.core.ClientConfigSelfCheck")
 }
 
 version = "${property("mod.version")}+${property("deps.minecraft")}-neoforge"
@@ -78,13 +90,22 @@ tasks {
 
 java {
     withSourcesJar()
-    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) {
+    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=26")) {
+        JavaVersion.VERSION_25
+    } else if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) {
         JavaVersion.VERSION_21
     } else {
         JavaVersion.VERSION_17
     }
     sourceCompatibility = javaCompat
     targetCompatibility = javaCompat
+}
+
+// Minecraft 26.x requires Java 25 at runtime; let Gradle auto-provision it via the Foojay toolchain resolver
+if (stonecutter.eval(stonecutter.current.version, ">=26")) {
+    java.toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
 }
 
 val additionalVersionsStr = findProperty("publish.additionalVersions") as String?

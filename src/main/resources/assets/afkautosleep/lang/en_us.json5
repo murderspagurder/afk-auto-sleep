@@ -1,7 +1,8 @@
 {
   key: {
     afkautosleep: {
-      selectBed: "Select Bed"
+      selectBed: "Select Bed",
+      openSettings: "Open Settings"
     },
     category: {
       afkautosleep: {
@@ -12,6 +13,17 @@
   category: {
     afkautosleep: {
       keybinds: "AFK Auto Sleep"
+    }
+  },
+  screen: {
+    afkautosleep: {
+      config: {
+        title: "AFK Auto Sleep Settings",
+        logoutWhenNoBed: "Log out when no bed is in reach",
+        logoutMessage: "Logout message",
+        onlyWhenOtherPlayersOnline: "Only send sleep messages when others are online",
+        sleepMessages: "Sleep messages (separate with |)"
+      }
     }
   }
 }
