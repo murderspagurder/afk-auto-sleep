@@ -11,6 +11,7 @@ public class EventHandler {
     private static final int LOGOUT_DELAY_TICKS = 20 * 5;
     private static final String LOGOUT_WARNING = "No bed in reach, logging out in 5 seconds.";
     private static int pendingLogoutTicks;
+    private static boolean wasSleeping;
     private static long inactiveTicks;
     private static Vec3 lastPosition;
     private static float lastXRotation;
@@ -18,12 +19,27 @@ public class EventHandler {
 
     public static void onClientJoin() {
         pendingLogoutTicks = 0;
+        wasSleeping = false;
         resetActivity();
         State.disable();
         State.logState();
     }
 
     public static void onClientTick(Minecraft client) {
+        if (client.level == null || client.player == null) {
+            wasSleeping = false;
+        } else {
+            boolean isSleeping = client.player.isSleeping();
+            if (isSleeping && !wasSleeping && State.isEnabled()) {
+                SleepMessageSelector.select(
+                        ClientConfig.sleepMessages(),
+                        hasOtherPlayer(client),
+                        ClientConfig.onlyWhenOtherPlayersOnline()
+                ).ifPresent(message -> Util.sendChat(client, message));
+            }
+            wasSleeping = isSleeping;
+        }
+
         while (KeyMappings.OPEN_SETTINGS.consumeClick()) {
             ConfigScreen.open(client);
         }

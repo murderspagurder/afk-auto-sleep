@@ -17,7 +17,9 @@ public class ConfigScreen extends Screen {
 
     private final Screen parent;
     private Checkbox logoutWhenNoBed;
+    private Checkbox onlyWhenOtherPlayersOnline;
     private EditBox logoutMessage;
+    private EditBox sleepMessages;
 
     public ConfigScreen(Screen parent) {
         super(Component.translatable("screen.afkautosleep.config.title"));
@@ -57,18 +59,39 @@ public class ConfigScreen extends Screen {
         this.logoutMessage.setValue(ClientConfig.logoutMessage());
         this.addRenderableWidget(this.logoutMessage);
 
+        this.onlyWhenOtherPlayersOnline = Checkbox.builder(
+                Component.translatable("screen.afkautosleep.config.onlyWhenOtherPlayersOnline"),
+                this.font
+            )
+            .pos(center - 100, 120)
+            .selected(ClientConfig.onlyWhenOtherPlayersOnline())
+            .build();
+        this.addRenderableWidget(this.onlyWhenOtherPlayersOnline);
+
+        this.sleepMessages = new EditBox(
+            this.font,
+            center - 100,
+            160,
+            200,
+            20,
+            Component.translatable("screen.afkautosleep.config.sleepMessages")
+        );
+        this.sleepMessages.setMaxLength(2048);
+        this.sleepMessages.setValue(String.join(" | ", ClientConfig.sleepMessages()));
+        this.addRenderableWidget(this.sleepMessages);
+
         this.addRenderableWidget(Button.builder(
                         Component.translatable("gui.done"),
                         button -> save()
                 )
-                .pos(center - 100, 130)
+            .pos(center - 100, this.height - 30)
                 .width(95)
                 .build());
         this.addRenderableWidget(Button.builder(
                         Component.translatable("gui.cancel"),
                         button -> closeWithoutSaving()
                 )
-                .pos(center + 5, 130)
+                .pos(center + 5, this.height - 30)
                 .width(95)
                 .build());
     }
@@ -84,6 +107,13 @@ public class ConfigScreen extends Screen {
                 78,
                 0xFFFFFF
         );
+            guiGraphics.text(
+                this.font,
+                Component.translatable("screen.afkautosleep.config.sleepMessages"),
+                this.width / 2 - 100,
+                148,
+                0xFFFFFF
+            );
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
     }
     //?} else {
@@ -98,6 +128,13 @@ public class ConfigScreen extends Screen {
                 78,
                 0xFFFFFF
         );
+            guiGraphics.drawString(
+                this.font,
+                Component.translatable("screen.afkautosleep.config.sleepMessages"),
+                this.width / 2 - 100,
+                148,
+                0xFFFFFF
+            );
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
     *///?}
@@ -108,7 +145,12 @@ public class ConfigScreen extends Screen {
     }
 
     private void save() {
-        ClientConfig.save(this.logoutWhenNoBed.selected(), this.logoutMessage.getValue());
+        ClientConfig.save(
+            this.logoutWhenNoBed.selected(),
+            this.logoutMessage.getValue(),
+            ClientConfig.parseSleepMessagesText(this.sleepMessages.getValue()),
+            this.onlyWhenOtherPlayersOnline.selected()
+        );
         closeScreen();
     }
 

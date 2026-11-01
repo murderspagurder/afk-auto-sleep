@@ -20,7 +20,9 @@
       config: {
         title: "AFK Auto Sleep Settings",
         logoutWhenNoBed: "Log out when no bed is in reach",
-        logoutMessage: "Logout message"
+        logoutMessage: "Logout message",
+        onlyWhenOtherPlayersOnline: "Only send sleep messages when others are online",
+        sleepMessages: "Sleep messages (separate with |)"
       }
     }
   }
